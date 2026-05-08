@@ -18,8 +18,8 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      text-align: center;
       flex-direction: column;
+      text-align: center;
     }
 
     .btn {
@@ -28,9 +28,14 @@
       background: #0078D7;
       color: white;
       border-radius: 8px;
-      text-decoration: none;
+      border: none;
       font-weight: 600;
-      margin-top: 10px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
     }
 
     .hint {
@@ -38,23 +43,44 @@
       font-size: 0.9em;
       color: #555;
     }
+
+    .loading {
+      display: none;
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #0078D7;
+    }
   </style>
 </head>
 
 <body>
 
-  <a
-    class="btn"
-    href="https://editor.curvenote.com/@uhlukas"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Open Copilot Studio Community
-  </a>
+  <button class="btn" id="enterBtn">
+    Enter Curvenote Editor
+  </button>
+
+  <div class="loading" id="loading">
+    Launching editor...
+  </div>
 
   <div class="hint">
-    If it doesn’t open, tap again — network may be busy.
+    Faster launch mode enabled (no reload shell)
   </div>
+
+  <script>
+    const btn = document.getElementById("enterBtn");
+    const loading = document.getElementById("loading");
+
+    btn.addEventListener("click", () => {
+      loading.style.display = "block";
+      btn.disabled = true;
+
+      // slight delay for UX feel (not actual loading)
+      setTimeout(() => {
+        window.location.href = "https://editor.curvenote.com/@uhlukas";
+      }, 300);
+    });
+  </script>
 
 </body>
 </html>
