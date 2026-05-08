@@ -14,20 +14,25 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activate (remove old cache)
+// Activate
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.map(key => {
-        if (key !== CACHE_NAME) return caches.delete(key);
-      }))
+      Promise.all(
+        keys.map(key => key !== CACHE_NAME && caches.delete(key))
+      )
     )
   );
   self.clients.claim();
 });
 
-// Fetch (fast + safe fallback)
+// Fetch (UPDATED - recommended)
 self.addEventListener("fetch", (event) => {
+  if (event.request.mode === "navigate") {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(cached => {
       return cached || fetch(event.request);
