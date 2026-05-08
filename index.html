@@ -2,83 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>DASC CurveNote Launcher</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Copilot Studio Community</title>
 
   <link rel="manifest" href="manifest.json" />
-
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#0078D7" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
   <style>
     body {
-      margin: 0;
-      height: 100vh;
+      font-family: system-ui, sans-serif;
+      background: #f7f7f7;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #111;
-      color: white;
-      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
       flex-direction: column;
     }
 
-    button {
-      padding: 16px 28px;
-      border: none;
-      border-radius: 12px;
-      background: white;
-      color: black;
-      font-size: 18px;
-      cursor: pointer;
+    .btn {
+      padding: 16px 32px;
+      font-size: 1.2em;
+      background: #0078D7;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 10px;
     }
 
-    .spinner {
-      margin-top: 24px;
-      width: 48px;
-      height: 48px;
-      border: 5px solid #444;
-      border-top: 5px solid white;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      display: none;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+    .hint {
+      margin-top: 15px;
+      font-size: 0.9em;
+      color: #555;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>DASC CurveNote Launcher</h1>
+  <a
+    class="btn"
+    href="https://editor.curvenote.com/@uhlukas"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Open Copilot Studio Community
+  </a>
 
-  <button id="launchBtn">
-    Launch CurveNote
-  </button>
-
-  <div class="spinner" id="spinner"></div>
-
-  <script>
-    const button = document.getElementById("launchBtn");
-    const spinner = document.getElementById("spinner");
-
-    button.addEventListener("click", () => {
-      button.style.display = "none";
-      spinner.style.display = "block";
-
-      setTimeout(() => {
-        window.location.href = "https://editor.curvenote.com/@uhlukas";
-      }, 1500);
-    });
-
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./sw.js");
-    }
-  </script>
+  <div class="hint">
+    If it doesn’t open, tap again — network may be busy.
+  </div>
 
 </body>
 </html>
