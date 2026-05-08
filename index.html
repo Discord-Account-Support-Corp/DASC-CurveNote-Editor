@@ -3,39 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
   <title>Copilot Studio Community</title>
-
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#0078D7" />
-
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
   <style>
     html, body {
       margin: 0;
       height: 100%;
+      overflow: hidden;
       font-family: system-ui, sans-serif;
       background: #f7f7f7;
-      overflow: hidden;
+
+      /* kills “Safari bounce feel” */
+      overscroll-behavior: none;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
     }
 
     body {
       display: flex;
-      justify-content: center;
       align-items: center;
-      flex-direction: column;
+      justify-content: center;
       text-align: center;
     }
 
-    .card {
-      transition: transform 0.5s ease, opacity 0.5s ease;
+    .screen {
+      transition: all 0.35s ease;
     }
 
     .title {
       font-size: 1.4em;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .btn {
@@ -47,79 +46,57 @@
       border: none;
       font-weight: 600;
       cursor: pointer;
-
-      transition: transform 0.15s ease, box-shadow 0.2s ease;
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
 
     .btn:active {
-      transform: scale(0.96);
+      transform: scale(0.97);
     }
 
-    .hint {
-      margin-top: 12px;
-      font-size: 0.85em;
-      color: #666;
+    .fade-out {
+      opacity: 0;
+      transform: scale(0.98);
     }
 
-    /* Apple-style overlay blur */
-    .transition-overlay {
+    .overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(18px);
+      inset: 0;
+      background: #f7f7f7;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.3s ease;
     }
 
-    .transition-overlay.active {
+    .overlay.active {
       opacity: 1;
-    }
-
-    /* Zoom-out effect */
-    .zoom-out {
-      transform: scale(0.92);
-      opacity: 0;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="card" id="card">
+  <div class="overlay" id="overlay"></div>
+
+  <div class="screen" id="screen">
     <div class="title">Copilot Studio Community</div>
 
-    <button class="btn" id="enterBtn">
+    <button class="btn" id="enter">
       Enter Curvenote Editor
     </button>
-
-    <div class="hint">
-      Tap to launch workspace
-    </div>
   </div>
 
-  <div class="transition-overlay" id="overlay"></div>
-
   <script>
-    const btn = document.getElementById("enterBtn");
-    const card = document.getElementById("card");
+    const btn = document.getElementById("enter");
+    const screen = document.getElementById("screen");
     const overlay = document.getElementById("overlay");
 
     btn.addEventListener("click", () => {
-      // Step 1: blur background (Apple-style)
       overlay.classList.add("active");
+      screen.classList.add("fade-out");
 
-      // Step 2: zoom out launcher
-      card.classList.add("zoom-out");
-
-      // Step 3: slight delay then redirect
       setTimeout(() => {
         window.location.href = "https://editor.curvenote.com/@uhlukas";
-      }, 380);
+      }, 300);
     });
   </script>
 
