@@ -1,7 +1,7 @@
 {
   "name": "Copilot Studio Community",
   "short_name": "Copilot Studio",
-  "start_url": "./index.html",
+  "start_url": "./"
   "scope": "./",
   "display": "standalone",
   "background_color": "#f7f7f7",
