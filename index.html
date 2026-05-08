@@ -2,51 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Copilot Studio Community</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
+  <title>Curvenote Editor</title>
+
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0078D7" />
+
+  <!-- iOS support -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
   <style>
-    body {
-      font-family: system-ui, sans-serif;
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
       background: #f7f7f7;
+      font-family: system-ui, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
       flex-direction: column;
       text-align: center;
     }
 
+    .container {
+      padding: 20px;
+    }
+
+    .title {
+      font-size: 1.4em;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #222;
+    }
+
     .btn {
       padding: 16px 32px;
-      font-size: 1.2em;
+      font-size: 1.1em;
       background: #0078D7;
       color: white;
-      border-radius: 8px;
+      border-radius: 12px;
       border: none;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.1s ease;
+
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     .btn:active {
-      transform: scale(0.96);
+      transform: scale(0.97);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     }
 
     .hint {
-      margin-top: 15px;
-      font-size: 0.9em;
-      color: #555;
+      margin-top: 14px;
+      font-size: 0.85em;
+      color: #666;
     }
 
     .loading {
       display: none;
-      margin-top: 15px;
+      margin-top: 12px;
       font-size: 0.9em;
       color: #0078D7;
     }
@@ -55,19 +80,28 @@
 
 <body>
 
-  <button class="btn" id="enterBtn">
-    Enter Curvenote Editor
-  </button>
+  <div class="container">
+    <div class="title">Copilot Studio Community</div>
 
-  <div class="loading" id="loading">
-    Launching editor...
-  </div>
+    <button class="btn" id="enterBtn">
+      Enter Curvenote Editor
+    </button>
 
-  <div class="hint">
-    Faster launch mode enabled (no reload shell)
+    <div class="loading" id="loading">
+      Launching editor...
+    </div>
+
+    <div class="hint">
+      Optimized launcher mode enabled
+    </div>
   </div>
 
   <script>
+    // Register service worker (safe check)
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./sw.js").catch(console.error);
+    }
+
     const btn = document.getElementById("enterBtn");
     const loading = document.getElementById("loading");
 
@@ -75,10 +109,9 @@
       loading.style.display = "block";
       btn.disabled = true;
 
-      // slight delay for UX feel (not actual loading)
       setTimeout(() => {
         window.location.href = "https://editor.curvenote.com/@uhlukas";
-      }, 300);
+      }, 250);
     });
   </script>
 
